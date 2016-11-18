@@ -1,0 +1,83 @@
+---
+title: "Does sunshine make people happy?"
+author: "F. Rodriguez-Sanchez"
+date: "Thursday, 17 November 2016"
+output: html_document
+# bibliography: crossref.bib
+# csl: ecology.csl
+---
+
+
+ficheros csl con los formatos de las revistas
+en bibliography le dices las referencias que tiene que incluir
+
+
+Introduction
+------------
+
+It is well known that individual well-being can be influenced by climatic conditions. However, ...
+
+
+
+## Methods
+
+```{r echo=FALSE} 
+## Read data
+data <- read.table("data.txt", header=T)
+#data[10,1] <- 11   # correct error
+
+# Fit linear model
+model <- lm(happiness ~ sunshine, data=data)
+
+```
+
+We collected data on `r nrow(data)` individuals and fitted a linear model.
+
+inline code: usando las tildes graves y la r
+el paquete que hace posible todo lo de Rmarkdown es knit
+
+
+Results
+-------
+
+We found that...
+
+```{r echo=FALSE, results='asis'}
+# Print results
+library(xtable, quietly=T)
+library(knitr)
+kable(xtable(model)) 
+```
+
+```{r echo=FALSE}
+# Plot
+library(visreg, quietly=T)
+visreg(model)
+```
+
+quietly=T: para que al abrir una librería no dé todos los mensajes que salen al abrirla
+
+Discussion
+----------
+
+These results confirm that sunshine is good for happiness (slope = `r coef(model)[2]`).
+
+## References
+Paquete rcrossref, Addins y seleccionar Add crossref citations, le metes el doi y listo.
+
+Para citar algo [@Guven_2012]. 
+Guardas la referencia con el doi y se crea un archivo en el proyecto que se llama crossref.bib. En ese archivo 
+puedes sacar los nombrecitos para citar los artículos
+Vienen en formato Bibtext. Se puede generar este formato para referencias que no tienen doi, en google academics
+le dices que lo exporte en formato bibtext y ya lo tienes.
+
+Acknowledgements
+----------------
+
+Y. Xie, J. MacFarlane, Rstudio...
+
+
+```{r}
+sessionInfo()
+```
+
